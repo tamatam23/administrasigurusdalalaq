@@ -3,86 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="referrer" content="no-referrer">
-    
     <title>Administrasi Guru - SD Islam Al Alaq</title>
-    
-    <meta name="description" content="Sistem Informasi Administrasi Guru SD Islam Al Alaq">
     <meta name="theme-color" content="#0ea5e9">
     
+    <script>
+        // SCRIPT DETEKTOR HP (SMART REDIRECT)
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cek apakah pengguna menggunakan HP (Android/iOS)
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            // Link Asli Google Apps Script Anda
+            var gasLink = "https://script.google.com/macros/s/AKfycbyg3pKdGUhUCVuXRk7b8BtRdwRqyYJw9BW2Ue7W9GQDuq9FywDzu_JoyVyG-ZXsrQaB/exec";
+
+            if (isMobile) {
+                // Jika HP, ubah teks loading dan langsung lempar ke link Google asli
+                document.querySelector('.loading-text').innerText = "Membuka versi Mobile...";
+                window.location.href = gasLink;
+            } else {
+                // Jika Laptop/PC, tampilkan Iframe Vercel
+                var iframe = document.createElement('iframe');
+                iframe.id = "app-frame";
+                iframe.src = gasLink;
+                iframe.setAttribute('allow', 'camera; microphone; fullscreen');
+                iframe.onload = function() {
+                    document.getElementById('loader').style.display = 'none';
+                };
+                document.body.appendChild(iframe);
+            }
+        });
+    </script>
+
     <style>
-        /* Reset margin & hilangkan scrollbar ganda */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; 
-            background-color: #f4f7fe;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Iframe dibuat memenuhi layar 100% */
-        #app-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Tampilan Loading sebelum Google Script selesai dimuat */
-        #loader {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8fafc;
-            z-index: 1;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #e2e8f0;
-            border-top: 4px solid #0ea5e9;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: #64748b;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #f4f7fe; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #app-frame { width: 100%; height: 100%; border: none; position: relative; z-index: 10; display: block; }
+        #loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; z-index: 1; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { color: #64748b; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
-
     <div id="loader">
         <div class="spinner"></div>
-        <div class="loading-text">Menghubungkan ke Server...</div>
+        <div class="loading-text" id="loading-msg">Menghubungkan ke Server...</div>
     </div>
-
-    <iframe 
-        id="app-frame" 
-        src="https://script.google.com/macros/s/AKfycbxYD4Udts1iF6KLtHvNPmJOtX9DWAcLYubJC-6bSsGHt4Fr0UvP1whrBN1WOy5D2y2x/exec" 
-        onload="document.getElementById('loader').style.display='none';" 
-        allow="camera; microphone; fullscreen">
-    </iframe>
-
-</body>
+    </body>
 </html>
