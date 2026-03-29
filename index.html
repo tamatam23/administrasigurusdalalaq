@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi Guru - SD Islam Al Alaq</title>
+    
+    <meta name="description" content="Sistem Informasi Administrasi Guru SD Islam Al Alaq">
+    <meta name="theme-color" content="#0ea5e9">
+    
+    <style>
+        /* Reset margin & hilangkan scrollbar ganda */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: #f4f7fe;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Iframe dibuat memenuhi layar 100% */
+        #app-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tampilan Loading sebelum Google Script selesai dimuat */
+        #loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8fafc;
+            z-index: 1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #0ea5e9;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loading-text">Menghubungkan ke Server...</div>
+    </div>
+
+    <iframe 
+        id="app-frame" 
+        src="https://script.google.com/macros/s/AKfycbwj681628ZijRSjRYg6QZ7OUct_V4OpERWWAABrfeZOXbdOb2H1vPjlw7XlP8Gbizap/exec" 
+        onload="document.getElementById('loader').style.display='none';" 
+        allow="camera; microphone; fullscreen">
+    </iframe>
+
+</body>
+</html>
