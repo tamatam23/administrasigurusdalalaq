@@ -7,46 +7,85 @@
     <title>Administrasi Guru - SD Islam Al Alaq</title>
     <meta name="theme-color" content="#0ea5e9">
     
+    <style>
+        /* Reset Dasar */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #f4f7fe; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        
+        /* Iframe untuk Laptop/PC */
+        #app-frame { width: 100%; height: 100%; border: none; display: none; position: relative; z-index: 10; }
+        
+        /* Tampilan Khusus Mobile */
+        #mobile-view {
+            display: none; /* Disembunyikan secara default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .mobile-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .mobile-icon { font-size: 50px; margin-bottom: 15px; }
+        .mobile-title { color: #1e293b; font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+        .mobile-text { color: #64748b; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+
+        .btn-buka {
+            background-color: #0ea5e9;
+            color: white;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+            width: 80%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-buka:active { background-color: #0284c7; transform: scale(0.96); }
+    </style>
+</head>
+<body>
+
+    <div id="mobile-view">
+        <div class="mobile-card">
+            <div class="mobile-icon">📱</div>
+            <div class="mobile-title">Versi Mobile Terdeteksi</div>
+            <div class="mobile-text">Untuk performa dan keamanan terbaik di perangkat HP, silakan buka aplikasi melalui tombol di bawah ini.</div>
+            
+            <a href="https://script.google.com/macros/s/AKfycbyg3pKdGUhUCVuXRk7b8BtRdwRqyYJw9BW2Ue7W9GQDuq9FywDzu_JoyVyG-ZXsrQaB/exec" class="btn-buka">
+                Buka Aplikasi Sekarang
+            </a>
+        </div>
+    </div>
+
+    <iframe id="app-frame" src="https://script.google.com/macros/s/AKfycbyg3pKdGUhUCVuXRk7b8BtRdwRqyYJw9BW2Ue7W9GQDuq9FywDzu_JoyVyG-ZXsrQaB/exec" allow="camera; microphone; fullscreen"></iframe>
+
     <script>
-        // SCRIPT DETEKTOR HP (SMART REDIRECT)
         document.addEventListener("DOMContentLoaded", function() {
-            // Cek apakah pengguna menggunakan HP (Android/iOS)
             var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
-            // Link Asli Google Apps Script Anda
-            var gasLink = "https://script.google.com/macros/s/AKfycbyg3pKdGUhUCVuXRk7b8BtRdwRqyYJw9BW2Ue7W9GQDuq9FywDzu_JoyVyG-ZXsrQaB/exec";
-
             if (isMobile) {
-                // Jika HP, ubah teks loading dan langsung lempar ke link Google asli
-                document.querySelector('.loading-text').innerText = "Membuka versi Mobile...";
-                window.location.href = gasLink;
+                // Jika dibuka di HP, tampilkan tombol dan sembunyikan Iframe
+                document.getElementById('mobile-view').style.display = 'flex';
+                document.body.style.overflow = 'auto'; // Kembalikan fungsi scroll
             } else {
-                // Jika Laptop/PC, tampilkan Iframe Vercel
-                var iframe = document.createElement('iframe');
-                iframe.id = "app-frame";
-                iframe.src = gasLink;
-                iframe.setAttribute('allow', 'camera; microphone; fullscreen');
-                iframe.onload = function() {
-                    document.getElementById('loader').style.display = 'none';
-                };
-                document.body.appendChild(iframe);
+                // Jika dibuka di Laptop, langsung tampilkan Iframe penuh
+                document.getElementById('app-frame').style.display = 'block';
             }
         });
     </script>
 
-    <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #f4f7fe; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        #app-frame { width: 100%; height: 100%; border: none; position: relative; z-index: 10; display: block; }
-        #loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; z-index: 1; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #0ea5e9; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loading-text { color: #64748b; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; }
-    </style>
-</head>
-<body>
-    <div id="loader">
-        <div class="spinner"></div>
-        <div class="loading-text" id="loading-msg">Menghubungkan ke Server...</div>
-    </div>
-    </body>
+</body>
 </html>
